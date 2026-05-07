@@ -1,5 +1,3 @@
-import Script from "next/script";
-
 function hashSchema(value: string) {
   let hash = 0;
   for (let index = 0; index < value.length; index += 1) {
@@ -13,7 +11,7 @@ export function JsonLd({ data }: { data: unknown }) {
   const json = JSON.stringify(data).replace(/</g, "\\u003c");
 
   return (
-    <Script
+    <script
       id={`structured-data-${hashSchema(json)}`}
       type="application/ld+json"
       dangerouslySetInnerHTML={{
