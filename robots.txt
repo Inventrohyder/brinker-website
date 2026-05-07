@@ -1,4 +1,4 @@
 User-Agent: *
 Allow: /
 
-Sitemap: https://Inventrohyder.github.io/brinker-website/sitemap.xml
+Sitemap: https://inventrohyder.github.io/brinker-website/sitemap.xml
