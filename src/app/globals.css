@@ -182,51 +182,73 @@ html.dark .hero-pattern {
   background-size: 42px 42px, 42px 42px, auto;
 }
 
-.logo-tile {
-  background: color-mix(in srgb, var(--card) 72%, transparent);
-  isolation: isolate;
-  overflow: hidden;
-  position: relative;
-  transition: background 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+.logo-carousel {
+  mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
 }
 
-.logo-tile::after {
-  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--primary) 14%, transparent), transparent);
-  content: "";
+.logo-carousel-card {
+  align-items: center;
+  background:
+    radial-gradient(circle at 50% 45%, color-mix(in srgb, var(--background) 88%, transparent), transparent 70%),
+    color-mix(in srgb, var(--card) 86%, var(--background));
+  border: 1px solid color-mix(in srgb, var(--border) 82%, transparent);
+  border-radius: 1.1rem;
+  display: flex;
+  height: clamp(7.25rem, 11vw, 9rem);
+  justify-content: center;
+  padding: 0.75rem 0.9rem;
+}
+
+.logo-carousel-image {
+  filter:
+    saturate(1.08)
+    contrast(1.12)
+    brightness(1.04)
+    drop-shadow(0 8px 18px rgba(0, 0, 0, 0.16));
   height: 100%;
-  left: -70%;
-  opacity: 0;
-  pointer-events: none;
-  position: absolute;
-  top: 0;
-  transform: skewX(-18deg);
-  transition: opacity 180ms ease;
-  width: 55%;
+  max-height: 7.4rem;
+  object-fit: contain;
+  opacity: 1;
+  transform: scale(1.08);
+  width: 100%;
 }
 
-.logo-tile:hover {
-  background: color-mix(in srgb, var(--card) 88%, transparent);
-  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--primary) 24%, transparent);
-  transform: translateY(-1px);
+.logo-carousel-control {
+  background: var(--primary);
+  border-color: color-mix(in srgb, var(--primary) 72%, var(--border));
+  box-shadow: 0 14px 32px color-mix(in srgb, var(--primary) 22%, transparent);
+  color: var(--primary-foreground);
+  opacity: 0.96;
 }
 
-.logo-tile:hover::after {
-  animation: logo-shimmer 900ms ease;
+.logo-carousel-control:hover {
+  background: color-mix(in srgb, var(--primary) 88%, var(--foreground));
+  color: var(--primary-foreground);
   opacity: 1;
 }
 
-.client-logo {
-  filter: saturate(0.95) contrast(1.02);
-  opacity: 0.82;
-  position: relative;
-  transition: filter 200ms ease, opacity 200ms ease, transform 200ms ease;
-  z-index: 1;
+.logo-carousel-control:disabled {
+  opacity: 0.45;
 }
 
-.logo-tile:hover .client-logo {
-  filter: saturate(1.05) contrast(1.04);
+html.dark .logo-carousel-card {
+  background:
+    radial-gradient(circle at 50% 46%, rgba(227, 239, 237, 0.72), rgba(161, 188, 190, 0.46) 62%, transparent 76%),
+    linear-gradient(145deg, rgba(65, 89, 98, 0.78), rgba(34, 55, 66, 0.88));
+  border-color: rgba(198, 225, 226, 0.2);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.08),
+    0 16px 36px rgba(0, 0, 0, 0.2);
+}
+
+html.dark .logo-carousel-image {
+  filter:
+    saturate(1.18)
+    contrast(1.26)
+    brightness(1.18)
+    drop-shadow(0 0 1px rgba(255, 255, 255, 0.5))
+    drop-shadow(0 8px 18px rgba(0, 0, 0, 0.24));
   opacity: 1;
-  transform: scale(1.035);
 }
 
 .signal-sweep {
@@ -445,38 +467,10 @@ html.dark .ops-status-row span {
   50% { opacity: 1; transform: translateX(35%); }
 }
 
-html.dark .logo-tile {
-  background: rgba(255, 255, 255, 0.032);
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.045);
-}
-
-html.dark .client-logo {
-  filter:
-    saturate(0.98)
-    contrast(1.06)
-    brightness(1.03)
-    drop-shadow(0 1px 1px rgba(255, 255, 255, 0.18));
-  opacity: 0.86;
-}
-
-html.dark .logo-tile:hover {
-  background: rgba(255, 255, 255, 0.065);
-}
-
-html.dark .logo-tile:hover .client-logo {
-  filter:
-    saturate(1.08)
-    contrast(1.08)
-    brightness(1.06)
-    drop-shadow(0 1px 1px rgba(255, 255, 255, 0.2));
-  opacity: 1;
-}
-
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .command-row,
   .command-row::after,
-  .logo-tile:hover::after,
   .motion-float,
   .motion-reveal,
   .ops-live-dot,
