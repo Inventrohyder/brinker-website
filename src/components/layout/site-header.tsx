@@ -6,6 +6,7 @@ import { buttonVariants } from "@/components/ui/button";
 import { Container } from "@/components/layout/container";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { ThemeToggle } from "@/components/layout/theme-toggle";
+import { publicAsset } from "@/lib/public-asset";
 
 export function SiteHeader() {
   return (
@@ -14,7 +15,7 @@ export function SiteHeader() {
         <Link href="/" className="brand-lockup group flex shrink-0 items-center gap-3" aria-label="Brinker Solutions home">
           <span className="brand-mark-shell relative grid size-11 place-items-center rounded-2xl xl:size-12">
             <Image
-              src="/images/brand/brinker-mark.png"
+              src={publicAsset("/images/brand/brinker-mark.png")}
               alt=""
               fill
               className="object-contain p-2"

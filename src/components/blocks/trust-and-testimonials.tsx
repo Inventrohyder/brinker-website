@@ -4,6 +4,7 @@ import { Container, Section } from "@/components/layout/container";
 import { Card } from "@/components/ui/card";
 import { clients, testimonials } from "@/content/site";
 import { SectionHeader } from "@/components/blocks/section-header";
+import { publicAsset } from "@/lib/public-asset";
 
 export function LogoCloud() {
   return (
@@ -15,7 +16,7 @@ export function LogoCloud() {
             {clients.map((client) => (
               <div key={client.name} className="logo-tile group grid min-h-20 place-items-center border-border p-3">
                 <Image
-                  src={client.logo}
+                  src={publicAsset(client.logo)}
                   alt={`${client.name} logo`}
                   width={220}
                   height={72}

@@ -4,6 +4,7 @@ import { Mail, MapPinned, Phone } from "lucide-react";
 import { mainNav, site } from "@/content/site";
 import { Container } from "@/components/layout/container";
 import { Separator } from "@/components/ui/separator";
+import { publicAsset } from "@/lib/public-asset";
 
 export function SiteFooter() {
   return (
@@ -14,7 +15,7 @@ export function SiteFooter() {
             <div className="brand-lockup flex items-center gap-3">
               <span className="brand-mark-shell relative grid size-12 place-items-center rounded-2xl">
                 <Image
-                  src="/images/brand/brinker-mark.png"
+                  src={publicAsset("/images/brand/brinker-mark.png")}
                   alt=""
                   fill
                   className="object-contain p-2"
