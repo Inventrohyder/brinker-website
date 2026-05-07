@@ -1,0 +1,149 @@
+name: GitHub Pages PR Preview
+
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+      - closed
+
+concurrency:
+  group: pages-preview-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  preview:
+    name: Build and publish preview
+    if: github.event.action != 'closed'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Resolve preview path
+        id: preview
+        shell: bash
+        run: |
+          repo_name="${GITHUB_REPOSITORY#*/}"
+          if [[ "${repo_name}" == "${GITHUB_REPOSITORY_OWNER}.github.io" ]]; then
+            base_path="/previews/pr-${{ github.event.pull_request.number }}"
+            preview_url="https://${GITHUB_REPOSITORY_OWNER}.github.io/previews/pr-${{ github.event.pull_request.number }}/"
+          else
+            base_path="/${repo_name}/previews/pr-${{ github.event.pull_request.number }}"
+            preview_url="https://${GITHUB_REPOSITORY_OWNER}.github.io/${repo_name}/previews/pr-${{ github.event.pull_request.number }}/"
+          fi
+          echo "base_path=${base_path}" >> "${GITHUB_OUTPUT}"
+          echo "preview_url=${preview_url}" >> "${GITHUB_OUTPUT}"
+          echo "destination=previews/pr-${{ github.event.pull_request.number }}" >> "${GITHUB_OUTPUT}"
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Build static preview
+        env:
+          NEXT_OUTPUT: export
+          NEXT_PUBLIC_BASE_PATH: ${{ steps.preview.outputs.base_path }}
+        run: pnpm build
+
+      - name: Disable Jekyll
+        run: touch out/.nojekyll
+
+      - name: Publish preview
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./out
+          publish_branch: gh-pages
+          destination_dir: ${{ steps.preview.outputs.destination }}
+          keep_files: true
+          user_name: github-actions[bot]
+          user_email: 41898282+github-actions[bot]@users.noreply.github.com
+
+      - name: Comment preview URL
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const marker = '<!-- brinker-pages-preview -->';
+            const previewUrl = '${{ steps.preview.outputs.preview_url }}';
+            const body = `${marker}
+            GitHub Pages preview is ready:
+
+            ${previewUrl}
+
+            This preview is rebuilt on every push to this PR.`;
+
+            const { owner, repo } = context.repo;
+            const issue_number = context.payload.pull_request.number;
+            const { data: comments } = await github.rest.issues.listComments({
+              owner,
+              repo,
+              issue_number,
+              per_page: 100,
+            });
+            const existing = comments.find((comment) =>
+              comment.user.type === 'Bot' && comment.body.includes(marker)
+            );
+
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner,
+                repo,
+                comment_id: existing.id,
+                body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner,
+                repo,
+                issue_number,
+                body,
+              });
+            }
+
+  cleanup:
+    name: Remove closed PR preview
+    if: github.event.action == 'closed'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout gh-pages
+        uses: actions/checkout@v5
+        with:
+          ref: gh-pages
+          path: gh-pages
+
+      - name: Remove preview directory
+        shell: bash
+        run: |
+          cd gh-pages
+          preview_dir="previews/pr-${{ github.event.pull_request.number }}"
+          if [[ ! -d "${preview_dir}" ]]; then
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          rm -rf "${preview_dir}"
+          git add -A "${preview_dir}"
+          git commit -m "Remove preview for PR #${{ github.event.pull_request.number }}"
+          git push
+
