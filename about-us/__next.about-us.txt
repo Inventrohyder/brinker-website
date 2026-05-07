@@ -2,4 +2,4 @@
 2:I[5012,["/brinker-website/_next/static/chunks/0zj4essy7m-t8.js","/brinker-website/_next/static/chunks/0g8q6ued0tt.4.js"],"default"]
 3:I[11352,["/brinker-website/_next/static/chunks/0zj4essy7m-t8.js","/brinker-website/_next/static/chunks/0g8q6ued0tt.4.js"],"default"]
 4:[]
-0:{"rsc":["$","$1","c",{"children":[null,["$","$L2",null,{"parallelRouterKey":"children","template":["$","$L3",null,{}]}]]}],"isPartial":false,"staleTime":300,"varyParams":"$W4","buildId":"DxKjUnenjwEUk_KB2Pt90"}
+0:{"rsc":["$","$1","c",{"children":[null,["$","$L2",null,{"parallelRouterKey":"children","template":["$","$L3",null,{}]}]]}],"isPartial":false,"staleTime":300,"varyParams":"$W4","buildId":"DfmIb6c7Edb_hdFu8h8Zt"}
