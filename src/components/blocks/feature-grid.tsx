@@ -7,19 +7,19 @@ import { SectionHeader } from "@/components/blocks/section-header";
 function FeatureCard({ item, tone = "light" }: { item: { title: string; summary: string; icon: ComponentType<{ className?: string; "aria-hidden"?: boolean }> }; tone?: "light" | "dark" }) {
   const Icon = item.icon;
   return (
-    <Card className={tone === "dark" ? "border-white/10 bg-white/[0.06] p-6 text-white" : "p-6"}>
+    <Card className={tone === "dark" ? "border-border bg-card/70 p-6 text-foreground shadow-sm dark:border-white/10 dark:bg-white/[0.06] dark:text-white dark:shadow-none" : "p-6"}>
       <span className="grid size-12 place-items-center rounded-2xl bg-primary/10 text-primary"><Icon aria-hidden={true} /></span>
-      <h3 className={tone === "dark" ? "mt-5 font-display text-xl font-black tracking-[-0.05em] text-white" : "mt-5 font-display text-xl font-black tracking-[-0.05em] text-foreground"}>{item.title}</h3>
-      <p className={tone === "dark" ? "mt-3 text-sm leading-6 text-white/62" : "mt-3 text-sm leading-6 text-muted-foreground"}>{item.summary}</p>
+      <h3 className={tone === "dark" ? "mt-5 font-display text-xl font-black tracking-[-0.05em] text-foreground dark:text-white" : "mt-5 font-display text-xl font-black tracking-[-0.05em] text-foreground"}>{item.title}</h3>
+      <p className={tone === "dark" ? "mt-3 text-sm leading-6 text-muted-foreground dark:text-white/62" : "mt-3 text-sm leading-6 text-muted-foreground"}>{item.summary}</p>
     </Card>
   );
 }
 
 export function SolutionFeatureGrid() {
   return (
-    <Section className="bg-[#07141f] text-white pattern-grid">
+    <Section className="hero-pattern bg-[#f3eee1] text-foreground dark:bg-[#07141f] dark:text-white">
       <Container>
-        <SectionHeader tone="inverse" eyebrow="Solution architecture" title="Infrastructure, security, and software planned as one operating system." summary="Brinker’s rebuild should emphasize connected systems rather than isolated products." />
+        <SectionHeader eyebrow="Solution architecture" title="Infrastructure, security, and software planned as one operating system." summary="Brinker’s rebuild should emphasize connected systems rather than isolated products." />
         <div className="mt-10 grid gap-5 lg:grid-cols-3">
           {solutionCards.map((item) => <FeatureCard item={item} tone="dark" key={item.title} />)}
         </div>

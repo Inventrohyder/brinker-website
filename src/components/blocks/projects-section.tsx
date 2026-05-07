@@ -9,14 +9,14 @@ export function ProjectsSection() {
     <Section>
       <Container>
         <SectionHeader eyebrow="Projects" title="A case-study structure ready for validated Brinker delivery stories." summary="The existing projects page needs stakeholder validation, so this rebuild preserves the route while avoiding unverifiable claims." />
-        <Card className="mt-10 overflow-hidden bg-[#07141f] p-6 text-white pattern-grid sm:p-8">
+        <Card className="hero-pattern mt-10 overflow-hidden border-border bg-card/80 p-6 text-foreground shadow-sm sm:p-8 dark:border-white/10 dark:bg-[#07141f] dark:text-white dark:shadow-none">
           <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
             <div className="max-w-3xl">
               <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary">Featured project framework</p>
               <h2 className="mt-3 font-display text-3xl font-black tracking-[-0.06em]">Sector-based delivery stories for infrastructure, security, and operations.</h2>
-              <p className="mt-4 text-sm leading-7 text-white/66">When final case studies are approved, this section can show outcomes, technologies deployed, locations, and support model without changing the page architecture.</p>
+              <p className="mt-4 text-sm leading-7 text-muted-foreground dark:text-white/66">When final case studies are approved, this section can show outcomes, technologies deployed, locations, and support model without changing the page architecture.</p>
             </div>
-            <AlertTriangle className="size-12 text-accent" aria-hidden={true} />
+            <AlertTriangle className="size-12 text-secondary dark:text-accent" aria-hidden={true} />
           </div>
         </Card>
         <div className="mt-6 grid gap-5 lg:grid-cols-3">

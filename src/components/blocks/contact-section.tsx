@@ -28,12 +28,12 @@ export function ContactSection() {
           </Card>
 
           <div className="grid gap-5">
-            <Card className="bg-[#07141f] p-6 text-white pattern-grid">
+            <Card className="hero-pattern border-border bg-card/80 p-6 text-foreground shadow-sm dark:border-white/10 dark:bg-[#07141f] dark:text-white dark:shadow-none">
               <h2 className="font-display text-2xl font-black tracking-[-0.05em]">Direct contact</h2>
-              <div className="mt-6 grid gap-4 text-sm text-white/72">
-                <a href={`mailto:${site.email}`} className="flex gap-3 hover:text-white"><Mail className="size-5 text-primary" aria-hidden={true} />{site.email}</a>
-                <a href={`tel:${site.phones.nairobi.replace(/\s+/g, "")}`} className="flex gap-3 hover:text-white"><Phone className="size-5 text-primary" aria-hidden={true} />Nairobi: {site.phones.nairobi}</a>
-                <a href={`tel:${site.phones.mombasa.replace(/\s+/g, "")}`} className="flex gap-3 hover:text-white"><Phone className="size-5 text-primary" aria-hidden={true} />Mombasa: {site.phones.mombasa}</a>
+              <div className="mt-6 grid gap-4 text-sm text-muted-foreground dark:text-white/72">
+                <a href={`mailto:${site.email}`} className="flex gap-3 hover:text-foreground dark:hover:text-white"><Mail className="size-5 text-primary" aria-hidden={true} />{site.email}</a>
+                <a href={`tel:${site.phones.nairobi.replace(/\s+/g, "")}`} className="flex gap-3 hover:text-foreground dark:hover:text-white"><Phone className="size-5 text-primary" aria-hidden={true} />Nairobi: {site.phones.nairobi}</a>
+                <a href={`tel:${site.phones.mombasa.replace(/\s+/g, "")}`} className="flex gap-3 hover:text-foreground dark:hover:text-white"><Phone className="size-5 text-primary" aria-hidden={true} />Mombasa: {site.phones.mombasa}</a>
               </div>
             </Card>
             {site.offices.map((office) => (

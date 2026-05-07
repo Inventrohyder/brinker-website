@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
   --font-body: "Avenir Next", "Trebuchet MS", sans-serif;
   --font-display: "Avenir Next", "Helvetica Neue", sans-serif;
