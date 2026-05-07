@@ -1,0 +1,4 @@
+User-Agent: *
+Allow: /
+
+Sitemap: https://brinker.co.ke/sitemap.xml

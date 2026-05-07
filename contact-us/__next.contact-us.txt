@@ -1,0 +1,5 @@
+1:"$Sreact.fragment"
+2:I[5012,["/brinker-website/_next/static/chunks/02gp1q.3p4c.w.js","/brinker-website/_next/static/chunks/0g8q6ued0tt.4.js"],"default"]
+3:I[11352,["/brinker-website/_next/static/chunks/02gp1q.3p4c.w.js","/brinker-website/_next/static/chunks/0g8q6ued0tt.4.js"],"default"]
+4:[]
+0:{"rsc":["$","$1","c",{"children":[null,["$","$L2",null,{"parallelRouterKey":"children","template":["$","$L3",null,{}]}]]}],"isPartial":false,"staleTime":300,"varyParams":"$W4","buildId":"350FbNvr685NimRgShQfy"}
