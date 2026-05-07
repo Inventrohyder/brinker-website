@@ -1,12 +1,16 @@
-import type { Metadata } from "next";
 import { ContactSection } from "@/components/blocks/contact-section";
 import { PageHero } from "@/components/blocks/page-hero";
 import { SiteShell } from "@/components/layout/site-shell";
 import { pageIntros } from "@/content/site";
 import { JsonLd } from "@/components/structured-data";
-import { webPageSchema } from "@/lib/schema";
+import { contactSchema, schemaIds, webPageSchema } from "@/lib/schema";
+import { createMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = { title: "Contact Us" };
+export const metadata = createMetadata({
+  title: pageIntros.contact.title,
+  description: pageIntros.contact.summary,
+  path: "/contact-us",
+});
 
 export default function ContactPage() {
   return (
@@ -17,9 +21,10 @@ export default function ContactPage() {
           name: pageIntros.contact.title,
           description: pageIntros.contact.summary,
           type: "ContactPage",
-          mainEntityId: "https://brinker.co.ke/#organization",
+          mainEntityId: schemaIds.organization,
         })}
       />
+      <JsonLd data={contactSchema()} />
       <SiteShell>
       <PageHero {...pageIntros.contact} />
       <ContactSection />

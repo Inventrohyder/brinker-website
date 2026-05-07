@@ -63,6 +63,7 @@ jobs:
         env:
           NEXT_OUTPUT: export
           NEXT_PUBLIC_BASE_PATH: ${{ steps.preview.outputs.base_path }}
+          NEXT_PUBLIC_SITE_URL: ${{ steps.preview.outputs.preview_url }}
         run: pnpm build
 
       - name: Disable Jekyll
@@ -146,4 +147,3 @@ jobs:
           git add -A "${preview_dir}"
           git commit -m "Remove preview for PR #${{ github.event.pull_request.number }}"
           git push
-

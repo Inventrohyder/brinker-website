@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import { CTASection } from "@/components/blocks/cta-section";
 import { PageHero } from "@/components/blocks/page-hero";
 import { ProjectsSection } from "@/components/blocks/projects-section";
@@ -6,9 +5,14 @@ import { Testimonials } from "@/components/blocks/trust-and-testimonials";
 import { SiteShell } from "@/components/layout/site-shell";
 import { pageIntros } from "@/content/site";
 import { JsonLd } from "@/components/structured-data";
-import { projectItemListSchema, webPageSchema } from "@/lib/schema";
+import { projectItemListSchema, schemaIds, webPageSchema } from "@/lib/schema";
+import { createMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = { title: "Projects" };
+export const metadata = createMetadata({
+  title: pageIntros.projects.title,
+  description: pageIntros.projects.summary,
+  path: "/projects",
+});
 
 export default function ProjectsPage() {
   return (
@@ -19,7 +23,7 @@ export default function ProjectsPage() {
           name: pageIntros.projects.title,
           description: pageIntros.projects.summary,
           type: "CollectionPage",
-          mainEntityId: "https://brinker.co.ke/projects#project-list",
+          mainEntityId: schemaIds.projectList,
         })}
       />
       <JsonLd data={projectItemListSchema()} />

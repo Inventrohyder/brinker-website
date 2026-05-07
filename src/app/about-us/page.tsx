@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import { AboutPreview } from "@/components/blocks/about-preview";
 import { CTASection } from "@/components/blocks/cta-section";
 import { CapabilityGrid, ValuesSection } from "@/components/blocks/feature-grid";
@@ -9,9 +8,14 @@ import { SiteShell } from "@/components/layout/site-shell";
 import { Card } from "@/components/ui/card";
 import { pageIntros } from "@/content/site";
 import { JsonLd } from "@/components/structured-data";
-import { webPageSchema } from "@/lib/schema";
+import { schemaIds, webPageSchema } from "@/lib/schema";
+import { createMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = { title: "About Us" };
+export const metadata = createMetadata({
+  title: pageIntros.about.title,
+  description: pageIntros.about.summary,
+  path: "/about-us",
+});
 
 const team = [
   "Industry experts who understand enterprise, public-sector, and operational technology needs.",
@@ -28,7 +32,7 @@ export default function AboutPage() {
           name: pageIntros.about.title,
           description: pageIntros.about.summary,
           type: "AboutPage",
-          mainEntityId: "https://brinker.co.ke/#organization",
+          mainEntityId: schemaIds.organization,
         })}
       />
       <SiteShell>

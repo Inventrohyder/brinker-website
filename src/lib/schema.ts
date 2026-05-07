@@ -1,14 +1,21 @@
 import { pageIntros, projects, services, site, solutionGroups } from "@/content/site";
+import { absoluteUrl, siteUrl } from "@/lib/site-url";
+import { socialImage } from "@/lib/seo";
 
-const siteUrl = "https://brinker.co.ke";
 const language = "en-KE";
 const organizationId = `${siteUrl}/#organization`;
 const websiteId = `${siteUrl}/#website`;
-const offerCatalogId = `${siteUrl}/what-we-offer#offer-catalog`;
+const offerCatalogId = absoluteUrl("/what-we-offer#offer-catalog");
+const solutionListId = absoluteUrl("/what-we-offer#solution-list");
+const projectListId = absoluteUrl("/projects#project-list");
 
-function absoluteUrl(path = "/") {
-  return new URL(path, siteUrl).toString();
-}
+export const schemaIds = {
+  organization: organizationId,
+  website: websiteId,
+  offerCatalog: offerCatalogId,
+  solutionList: solutionListId,
+  projectList: projectListId,
+} as const;
 
 function slug(value: string) {
   return value.toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
@@ -52,6 +59,8 @@ export function siteSchemaGraph() {
         url: siteUrl,
         slogan: site.tagline,
         description: site.description,
+        logo: absoluteUrl("/icon-512.png"),
+        image: socialImage.url,
         foundingDate: "2015",
         email: site.email,
         telephone: [site.phones.nairobi, site.phones.mombasa],
@@ -77,6 +86,16 @@ export function siteSchemaGraph() {
         location: offices.map((office) => ({ "@id": office["@id"] })),
         areaServed: ["Kenya", "East Africa", "Africa"],
         knowsAbout: services.map((service) => service.title),
+        makesOffer: services.map((service) => ({
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: service.title,
+            description: service.summary,
+            serviceType: service.title,
+            areaServed: ["Kenya", "East Africa", "Africa"],
+          },
+        })),
       },
       {
         "@type": "WebSite",
@@ -86,6 +105,7 @@ export function siteSchemaGraph() {
         description: site.description,
         inLanguage: language,
         publisher: { "@id": organizationId },
+        image: socialImage.url,
       },
       ...offices,
     ],
@@ -121,14 +141,14 @@ export function solutionItemListSchema() {
   return {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    "@id": `${siteUrl}/what-we-offer#solution-list`,
+    "@id": solutionListId,
     name: "Brinker Solutions detailed solution taxonomy",
     itemListElement: solutionGroups.map((group, index) => ({
       "@type": "ListItem",
       position: index + 1,
       item: {
         "@type": "Service",
-        "@id": `${siteUrl}/what-we-offer#${group.id}`,
+        "@id": absoluteUrl(`/what-we-offer#${group.id}`),
         name: group.title,
         description: group.summary,
         serviceType: group.title,
@@ -157,7 +177,7 @@ export function projectItemListSchema() {
   return {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    "@id": `${siteUrl}/projects#project-list`,
+    "@id": projectListId,
     name: "Brinker Solutions project examples",
     itemListElement: projects.map((project, index) => ({
       "@type": "ListItem",
@@ -178,7 +198,7 @@ export function contactSchema() {
   return {
     "@context": "https://schema.org",
     "@type": "ContactPage",
-    "@id": `${siteUrl}/contact-us#contactpage`,
+    "@id": absoluteUrl("/contact-us#contactpage"),
     url: absoluteUrl("/contact-us"),
     name: pageIntros.contact.title,
     description: pageIntros.contact.summary,
@@ -227,7 +247,7 @@ export function webPageSchema({
                 "@type": "ListItem",
                 position: 1,
                 name: "Home",
-                item: siteUrl,
+                item: absoluteUrl("/"),
               },
               {
                 "@type": "ListItem",

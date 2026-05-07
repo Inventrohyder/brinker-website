@@ -6,7 +6,7 @@ import { ServiceCardGrid } from "@/components/blocks/service-card-grid";
 import { LogoCloud, Testimonials } from "@/components/blocks/trust-and-testimonials";
 import { SiteShell } from "@/components/layout/site-shell";
 import { JsonLd } from "@/components/structured-data";
-import { serviceOfferCatalogSchema, webPageSchema } from "@/lib/schema";
+import { schemaIds, serviceOfferCatalogSchema, webPageSchema } from "@/lib/schema";
 
 export default function Home() {
   return (
@@ -16,7 +16,7 @@ export default function Home() {
           path: "/",
           name: "Home",
           description: "Brinker Solutions delivers enterprise IT, security, communication infrastructure, data centers, safety systems, and software integration across Africa and beyond.",
-          mainEntityId: "https://brinker.co.ke/#organization",
+          mainEntityId: schemaIds.organization,
         })}
       />
       <JsonLd data={serviceOfferCatalogSchema()} />

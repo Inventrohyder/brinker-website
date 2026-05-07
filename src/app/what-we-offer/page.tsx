@@ -1,13 +1,17 @@
-import type { Metadata } from "next";
 import { CTASection } from "@/components/blocks/cta-section";
 import { DetailedSolutions } from "@/components/blocks/detailed-solutions";
 import { PageHero } from "@/components/blocks/page-hero";
 import { SiteShell } from "@/components/layout/site-shell";
 import { pageIntros } from "@/content/site";
 import { JsonLd } from "@/components/structured-data";
-import { serviceOfferCatalogSchema, solutionItemListSchema, webPageSchema } from "@/lib/schema";
+import { schemaIds, serviceOfferCatalogSchema, solutionItemListSchema, webPageSchema } from "@/lib/schema";
+import { createMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = { title: "Solutions" };
+export const metadata = createMetadata({
+  title: pageIntros.solutions.title,
+  description: pageIntros.solutions.summary,
+  path: "/what-we-offer",
+});
 
 export default function SolutionsPage() {
   return (
@@ -18,7 +22,7 @@ export default function SolutionsPage() {
           name: pageIntros.solutions.title,
           description: pageIntros.solutions.summary,
           type: "CollectionPage",
-          mainEntityId: "https://brinker.co.ke/what-we-offer#solution-list",
+          mainEntityId: schemaIds.solutionList,
         })}
       />
       <JsonLd data={serviceOfferCatalogSchema()} />
