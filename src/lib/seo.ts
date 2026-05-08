@@ -4,6 +4,7 @@ import { absoluteUrl, siteUrl } from "@/lib/site-url";
 
 const socialImageVersion = "20260507";
 const socialImagePath = `/og/brinker-social-card.png?v=${socialImageVersion}`;
+const iconVersion = "20260508";
 
 export const socialImage = {
   url: absoluteUrl(socialImagePath),
@@ -61,13 +62,13 @@ export function createMetadata({
     },
     icons: {
       icon: [
-        { url: absoluteUrl("/favicon.ico"), sizes: "any" },
-        { url: absoluteUrl("/icon-192.png"), type: "image/png", sizes: "192x192" },
-        { url: absoluteUrl("/icon-512.png"), type: "image/png", sizes: "512x512" },
+        { url: absoluteUrl(`/favicon.ico?v=${iconVersion}`), sizes: "any" },
+        { url: absoluteUrl(`/icon-192.png?v=${iconVersion}`), type: "image/png", sizes: "192x192" },
+        { url: absoluteUrl(`/icon-512.png?v=${iconVersion}`), type: "image/png", sizes: "512x512" },
       ],
-      apple: [{ url: absoluteUrl("/apple-touch-icon.png"), sizes: "180x180", type: "image/png" }],
+      apple: [{ url: absoluteUrl(`/apple-touch-icon.png?v=${iconVersion}`), sizes: "180x180", type: "image/png" }],
     },
-    manifest: absoluteUrl("/site.webmanifest"),
+    manifest: absoluteUrl(`/site.webmanifest?v=${iconVersion}`),
     openGraph: {
       title: pageTitle,
       description,

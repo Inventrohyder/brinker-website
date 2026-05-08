@@ -59,7 +59,7 @@ export function siteSchemaGraph() {
         url: siteUrl,
         slogan: site.tagline,
         description: site.description,
-        logo: absoluteUrl("/icon-512.png"),
+        logo: absoluteUrl("/icon-512.png?v=20260508"),
         image: socialImage.url,
         foundingDate: "2015",
         email: site.email,
